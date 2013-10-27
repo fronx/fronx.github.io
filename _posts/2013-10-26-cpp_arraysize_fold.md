@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "C++: array size, function templates, and something like folds"
+title:  "Array size, function templates, and something like folds"
 date:   2013-10-22
 categories: cpp
 ---
