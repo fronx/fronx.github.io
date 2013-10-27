@@ -5,7 +5,7 @@ date:   2013-10-22
 categories: cpp
 ---
 
-<i>This file explains the code in [1_arraysize_fold.cpp](1_arraysize_fold.cpp). It doesn't exactly go line by line, but almost. Maybe you want to [look at the program](1_arraysize_fold.cpp) before reading the explanations given here.</i>
+<i>This file explains the code in [1_arraysize_fold.cpp](https://github.com/fronx/cplusplus/blob/master/1_arraysize_fold.cpp). It doesn't exactly go line by line, but almost. Maybe you want to [look at the program](https://github.com/fronx/cplusplus/blob/master/1_arraysize_fold.cpp) before reading the explanations given here.</i>
 
 Welcome to this readme turned blog post. It teaches you about function templates, and what the hell they have to do with the length of arrays. And with monoids. It is also the first eposode of the great adventure of <a href="http://twitter.com/fronx">@fronx</a> learning C++! :D
 
