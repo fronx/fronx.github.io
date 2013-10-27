@@ -23,6 +23,7 @@ template <typename T, std::size_t Size>
 std::size_t arraysize(T (&)[Size]) { return Size; }
 ```
 
+
 ## Determining the size of an array
 
 C arrays (which we're also using here even though it's C++) are really quite dumb data structures that come with no metadata, so things like the size of the array, or the type of its elements, can't be read from the memory representation at runtime. However, certain things can be known at compile time, because the compiler is a smart little (huge) thing that analyzes the code and keeps a record of all kinds of stuff it knows about your variables and functions etc.
@@ -41,6 +42,7 @@ std::size_t arraysize(T (&)[Size]) { return Size; }
 The two lines belong together, meaning the first line defines elements that are used by the second line. (In fact, you could even remove the line break and have them as one line.)
 
 And here is how the generic (meaning it accepts and works with arguments of various types) function specified by the template would be used (copied from the `main` function):
+
 ```cpp
 int   a[] = { 1, 2, 3, 4 };
 float b[] = { 1.1, 2.5, 3.4 };
@@ -75,6 +77,7 @@ Every `x` in the picture represents one concrete function. What the function tem
 In the source code, I've picked the name `T` for a type whose identity we don't know yet (it's a pretty common name to use), and the name `Size` for the other parameter/dimension, which has the type `std::size_t`. (That type is predefined somewhere as an `unsigned int`.) Those two template parameters are placeholders that will be filled in when the function `arraysize` gets called.
 
 Let's move on to the function declaration (line 2) that makes use of those parameters. It consists of the following parts:
+
 ````
 std::size_t      // the return type
 arraysize        // the function name
@@ -139,6 +142,7 @@ When the compiler sees a call like `add(a[2], a[3])`, it matches the types of th
 Same for `mul`, except that it uses `*` instead of `+`.
 
 If you were to draw a coordinate system, as above, for the dimensions of either of those functions, it would look rather boring:
+
 ````
     x     x     x
 o--int--float--char--…--> T (order not significant)
