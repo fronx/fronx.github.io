@@ -9,8 +9,10 @@ You've heard of the 5-second-rule, right: if something fell on the ground, it's 
 
 Most of these rules sort of make sense. Humans have fairly reasonable instincts about what they can or can't eat. They also have similar instincts about technology <i>[unproven claim here]</i>. You notice it in conversations like this one <i>[the products mentioned don't actually exist]</i>:
 
-<h2>Tainted Tech</h2>
-<p><i>Enter WARD, a person who has seen it all, and NOE, a person who enjoys suggesting things</i></p>
+## Hear, say
+
+<i>Enter WARD, a person who has seen it all, and NOE, a person who enjoys suggesting things</i>
+
 <p>NOE<br />&nbsp; &nbsp; &nbsp;&nbsp;Hey Ward, we need a solution for this thing we want to do. I suggest we use <em>Frodoonar</em>. It's open source.</p>
 <p>WARD<br />&nbsp; &nbsp; &nbsp;&nbsp;I've seen people having trouble configuring it properly at my old company. I don't think we should use it.</p>
 <p>NOE<br />&nbsp; &nbsp; &nbsp;&nbsp;Oh, what didn't work?</p>
