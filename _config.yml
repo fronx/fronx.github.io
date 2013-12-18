@@ -2,3 +2,4 @@ exclude: [ Gemfile, Gemfile.lock ]
 name: fronx.github.io
 markdown: redcarpet
 pygments: true
+permalink: /:year-:month-:day/:title
