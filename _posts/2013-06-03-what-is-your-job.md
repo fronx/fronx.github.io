@@ -12,7 +12,7 @@ Here are some thoughts on dependencies, what they are good for, and how they can
 <ul>
 <li>There is such a thing as an artificial dependency on other people. Recognize and remove those dependencies.</li>
 <li>Others don't necessarily know what your job is. You do.</li>
-<li>If you feel like you have to ask for permission to do your job, you don't</li>
+<li>If you feel like you have to ask for permission to do your job, you don't.</li>
 </ul>
 
 ## Artificial dependencies
