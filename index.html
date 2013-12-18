@@ -10,7 +10,7 @@ title: fronx.github.io
         <a href="{{ post.url }}">{{ post.title }}</a>
         <p class="summary">
           <span class="meta">{{ post.date | date_to_string }}</span>
-          While investigating how to do conceptually simple things in C++, I discovered some interesting language features which  I explain in this post.
+          {{ post.summary }}
         </p>
       </li>
     {% endfor %}

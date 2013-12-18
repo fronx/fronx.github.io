@@ -3,6 +3,7 @@ layout: post
 title:  "A not so common way to think about CSS"
 date:   2013-09-10
 categories: css
+summary: "What's your mental model of the relationship between CSS selectors and HTML documents? This post investigates the effect of different answers to this question."
 ---
 
 <p>Here is how lots of people I've talked to conceptualize the relationship between CSS and HTML: you use HTML to structure information in a hierarchical way, and you <strong>attach</strong> styles to sets of elements, sort of from the outside.</p>

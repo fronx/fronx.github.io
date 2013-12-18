@@ -3,6 +3,7 @@ layout: post
 title:  "C++, array length, function templates, and something like folds"
 date:   2013-10-22
 categories: cpp
+summary: "While investigating how to do conceptually simple things in C++, I discovered some interesting language features which  I explain in this post."
 ---
 
 <i>This file explains the code in [1_arraysize_fold.cpp](https://github.com/fronx/cplusplus/blob/master/1_arraysize_fold.cpp). It doesn't exactly go line by line, but almost. Maybe you want to [look at the program](https://github.com/fronx/cplusplus/blob/master/1_arraysize_fold.cpp) before reading the explanations given here.</i>
