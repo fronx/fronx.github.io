@@ -93,13 +93,13 @@ The first two lines enable certain language features that we are making use of. 
 
 You can play with this little construct by saving the code to a file, opening `ghci`, loading the file via `:l FileName.hs`, and then shooting some statements at it using the technique introduced above:
 
-````
+```haskell
 *Main> :t undefined :: Add Zero Zero
 undefined :: Add Zero Zero :: Zero
 
 *Main> :t undefined :: Add (Succ Zero) (Succ Zero)
 undefined :: Add (Succ Zero) (Succ Zero) :: Succ (Succ Zero)
-````
+```
 
 Look at that! We're doing type-level arithmetic! The first statement computes `0 + 0 = 0` with types, and the second one computes the type-level equivalent of `1 + 1 = 2`. But how does it work? Let's look at the code again:
 
@@ -112,12 +112,12 @@ These two lines implement the type function `Add`. There are two cases: in the f
 
 You can imagine the execution of the `Add` type function going like this:
 
-````
+```haskell
   Add (Succ (Succ Zero)) (Succ Zero)  --   2 + 1
 = Add (Succ Zero) (Succ (Succ Zero))  -- = 1 + 2
 = Add Zero (Succ (Succ (Succ Zero)))  -- = 0 + 3
 = Succ (Succ (Succ Zero))             -- = 3
-````
+```
 
 That's already pretty cool. But we are not done yet: so far we are only able to model positive numbers. We still would't be able to model the exponent in units like `1/s` which can also be written as `s^-1`. So we also need negative numbers.
 
@@ -142,7 +142,7 @@ type instance Add (Pred a) (Pred b) = Add a (Pred (Pred b))
 
 This might take a while to chew on, so take your time and read it and try to construct some examples to try out on the console. If you can't come up with any, take a look at this little selection:
 
-````
+```haskell
 *Main> -- -1 + -1 = -2
 *Main> :t undefined::Add (Pred Zero) (Pred Zero)
 undefined::Add (Pred Zero) (Pred Zero) :: Pred (Pred Zero)
@@ -158,7 +158,7 @@ undefined::Add (Succ Zero) (Pred (Pred Zero)) :: Pred Zero
 *Main> -- 1 + 1 = 2
 *Main> :t undefined::Add (Succ Zero) (Succ Zero)
 undefined::Add (Succ Zero) (Succ Zero) :: Succ (Succ Zero)
-````
+```
 
 Looks like our type-level numbers are ready for prime time. Here is the whole program again, for reference, and I also threw in some aliases for negative type-level numbers:
 
