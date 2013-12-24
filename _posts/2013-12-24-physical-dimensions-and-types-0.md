@@ -137,10 +137,10 @@ The library that first inspired this series of posts is called [dimensional][1] 
 
 Anyway, here's the plan for the next few articles: we're going to start with a minimal `dimensional-tf`-like library that solves a few of the issues listed above, and extend it bit by bit. Along the way we'll meet a lot of interesting techniques and concepts.
 
-<i>(I am still in the process of writing those next posts.)</I>
-
+In the next post, we're going to learn about a technique that can be used to solve issue 1 mentioned above: [type-level numbers and type-level arithmetic][5].
 
 [1]: https://code.google.com/p/dimensional/
 [2]: http://www.haskell.org/pipermail/haskell/2006-December/018993.html
 [3]: http://flygdynamikern.blogspot.de/2012/02/announce-dimensional-tf-010-statically.html
 [4]: http://en.wikibooks.org/wiki/Haskell/Classes_and_types
+[5]: /2013-12-24--physical-dimensions-and-types-1/
