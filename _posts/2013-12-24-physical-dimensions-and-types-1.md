@@ -6,7 +6,7 @@ categories: haskell, types
 summary: "If you want to represent m, m^2, and m^3 using types, it makes sense to start by representing numbers as types."
 ---
 
-The goal of this post is to solve the first issue described in [the previous post][1] by modeling higher powers of a given dimension (such as length, mass, temperature, etc.) as types with a numeric component. So the type of a value in meters would be `Length One` and the type of a square meter would be `Length Two`, and so on.
+The goal of this post is to solve part of the first issue described in [the previous post][1] by modeling higher powers of a given dimension (such as length, mass, temperature, etc.) as types with a numeric component. So the type of a value in meters would be `Length One` and the type of a square meter would be `Length Two`, and so on.
 
 The way we're going to get there is by defining the types `Zero`, `One`, and `Two` themselves, ignoring the physical unit aspect for now. And we're going to do that in a way that is generic enough to allow for the definition of arbitrarily big type-level numbers. The technique we're using is based on [Peano numbers][2]. It is surprisingly simple and powerful.
 
