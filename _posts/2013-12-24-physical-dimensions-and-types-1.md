@@ -188,7 +188,7 @@ type instance Add (Pred a) (Pred b) = Add a (Pred (Pred b))
 
 ## What's next?
 
-The next thing to do is use those type-level numbers to parameterize other types, such as `Length`. The technique we're going to use for that is called "phantom types". Stay tuned.
+The next thing to do is use those type-level numbers to parameterize other types, such as `Length`. The technique we're going to use is called "phantom types". Stay tuned.
 
 <i>(I am still in the process of writing the next posts.)</I>
 
