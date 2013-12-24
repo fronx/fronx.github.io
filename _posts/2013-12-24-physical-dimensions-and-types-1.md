@@ -125,8 +125,8 @@ That's already pretty cool. But we are not done yet: so far we are only able to 
 
 ```haskell
 data Zero
-data Succ a -- "successor"
-data Pred a -- "predecessor"
+data Succ a -- "successor"   of some other type `a`
+data Pred a -- "predecessor" of some other type `a`
 ```
 
 We're going to use the type `Pred Zero` to represent -1, `Pred (Pred Zero)` -2, and so on. Now in order for addition to work with those new types, the `Add` type function has to be adjusted to cover all possible combinations of positive and negative numbers. The result looks like this:
