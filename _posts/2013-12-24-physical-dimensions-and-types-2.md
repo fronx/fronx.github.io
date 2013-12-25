@@ -4,7 +4,7 @@ title:  "Physical dimensions and types &mdash; Part 2"
 subtitle: "Phantom types"
 date:   2013-12-24
 categories: haskell, types
-summary: "In which we use type-level numbers as type arguments in yet other types, because it makes it very easy to represent m, m^2, m^3, 1/m, 1/m^2 and all similar units as types."
+summary: "In which we use type-level numbers as type arguments in phantom types, because it makes it very easy to represent m, m^2, m^3, 1/m, 1/m^2 and all similar units as types."
 ---
 
 <i>[Part 1][1] of this series introduced type-level numbers as a first step to solve issue 1 described in [part 0][0]. If you haven't read them, you may want to do that first to make sure you understand the context.</i>
