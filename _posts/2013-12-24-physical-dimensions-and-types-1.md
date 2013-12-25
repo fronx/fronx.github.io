@@ -189,7 +189,7 @@ type instance Add (Pred a) (Pred b) = Add a (Pred (Pred b))
 
 ## What's next?
 
-The next thing to do is use those type-level numbers to parameterize other types, such as `Length`. The technique we're going to use is called "phantom types". [Continue reading behing this link][3].
+The next thing to do is use those type-level numbers to parameterize other types, such as `Length`. The technique we're going to use is called "phantom types". [Continue reading behind this link][3].
 
 [1]: /2013-12-24--physical-dimensions-and-types-0/
 [2]: http://en.wikipedia.org/wiki/Peano_axioms
