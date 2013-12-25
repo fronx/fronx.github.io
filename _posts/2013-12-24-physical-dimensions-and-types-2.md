@@ -11,7 +11,7 @@ summary: "This post gets us about half way to a usable physical dimensions libra
 
 Now that we know [how to define type-level numbers][1], let's go and use them. We only have to find out what exactly "using them" means. Because as mentioned before, they are types that don't come with any constructors.
 
-What allows us to use them is something called "phantom types". The following code snippet shows how to define a phantom type and create values of it. You are not expected to fully understand it yet, so don't worry and just kind of stare at it for some time until you're ready to read on:
+What allows us to use them is something called "phantom types". The following code snippet shows how to define a phantom type and create values of it.
 
 ```haskell
 data Length n = Meter Double -- `Length` is a phantom type and
@@ -82,7 +82,7 @@ The `Quantity` type represents physical dimensions as positional phantom type va
 
 <i>Aside: A structure similar to this one is a core concept in the [dimensional-tf][3] library, except that there, it's still a little bit more complicated: instead of having one type to rule them all, similar to the `Quantity` type above, it spreads things out over two types, `Dimensional` and `Dim`, and in addition to that, it uses a phantom type variable to distinguish between two subtypes of `Dimensional`: `Unit` and `Quantity`. [If you're intrigued, check it out][3].</i>
 
-Now that we're able to give variables explicit physical unit types, the next interesting thing would be to enable operations such as addition and multiplication on them. The following piece of code adds that functionality. It is quite complex, and I'm going to explain what it means in a minute. But I suggest you take some time to read through it and try to make sense of it before reading the explanation, so you know what the things are that I mention.
+Now that we're able to give variables explicit physical unit types, the next interesting thing would be to enable operations such as addition and multiplication on them. The following piece of code adds that functionality.
 
 ```haskell
 -- disambiguate the built-in `+` and `*` operators from our custom ones
