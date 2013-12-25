@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "Physical dimensions and types &mdash; Part 1"
+subtitle: "Type-level numbers"
 date:   2013-12-24
 categories: haskell, types
 summary: "If you want to represent m, m^2, and m^3 using types, it makes sense to start by representing numbers as types."

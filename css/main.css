@@ -18,8 +18,19 @@ a:visited { color: #4183C4; }
 /*****************************************************************************/
 
 ul.posts { list-style-type: none; }
-
-ul.posts span {
+ul.posts .title span {
+  display: block;
+  color: #777;
+  padding: 6px 0;
+  font-size: 1.3em;
+}
+ul.posts .title span:before {
+  content: "⦗";
+}
+ul.posts .title span:after {
+  content: "⦘";
+}
+.meta {
   color: #aaa;
   font-family: Monaco, "Courier New", monospace;
   font-size: 80%;
@@ -39,7 +50,8 @@ ul.posts span {
 }
 
 .posts, .post { border-bottom: 2px solid #eee; }
-.posts li { margin-top: 1.5em; }
+.posts li { margin: 2em 0; border-bottom: 1px solid #eee; }
+.posts li:last-child { border-bottom: none; }
 .posts a { font-size: 1.6em; }
 .posts .meta { float: left; padding-right: 1em; }
 .posts .summary {
@@ -75,8 +87,13 @@ ul.posts span {
 }
 
 h1 {
-  margin-bottom: 1em;
+  margin: 1.5em 0;
   font-size: 1.8em;
+}
+h1 span {
+  display: block;
+  color: #666;
+  padding-top: 4px;
 }
 h2 {
   font-size: 1.6em;
