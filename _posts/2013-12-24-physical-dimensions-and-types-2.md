@@ -192,13 +192,13 @@ z * y :: Quantity (Succ Zero) Zero Zero Zero Zero Zero Zero
 
 What this output means is that the basic mechanisms are in place. Values can have physical units, modelled with types. (Yay!) Issue 1 ("higher powers", see [part 0][0]) is solved. Issue 2 ("units that are combinations of units") has been taken care of. And issue 3 ("multiplication and division") has been solved for the multiplication case, and it should be relatively easy to implement division analogously.
 
-There are still a few rough edges that need to be smoothed out:
+There are still a few rough edges that could be smoothed out:
 
 - It would be nice if there was a common way to print physical quantities.
 - The interface for creating values could be simpler, with less explicit typing everywhere.
-- `Quantity` has a lot of type variables that are all sort of related. It may make sense to give the whole collection of them its own identity and replace them with one type variable.
+- `Quantity` has a lot of type variables that are all sort of related. It may make sense to give the whole collection of them its own identity and replace them with only one type variable.
 
-If I don't lose interest in writing these kinds of articles, I'm going to look at some of those things in future posts. If you feel like it, let me know how you liked it so far by [tweeting at me][4].
+<i>Let me know how you liked this series of posts so far by [tweeting at me][4].</I>
 
 [0]: /2013-12-24--physical-dimensions-and-types-0/
 [1]: /2013-12-24--physical-dimensions-and-types-1/
