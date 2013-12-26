@@ -32,7 +32,7 @@ p = MakePair 'a' "abc"
 
 In this example, `a` and `b` are type variables. In order for `Pair` to become a proper type, each one of them has to be assigned to a concrete type. <i>(Aside: I gave the constructor a different name than the type to reduce confusion about which one is which. But you could also name them the same.)</i>
 
-The way `a` and `b` get filled in is by calling the constructor `MakePair` with two values. `MakePair 'a' "abc"` sets the type variable `a` to the type of `'a'`, which is `Char`, and the type of `b` to the type of `"abc"`, which is `[Char]`. So even though the variables stand for *types*, you set the type arguments indirectly by providing *values*.
+The way `a` and `b` get filled in is by calling the constructor `MakePair` with two values. `MakePair 'a' "abc"` sets the type variable `a` to the type of `'a'`, which is `Char`, and the type variable `b` to the type of `"abc"`, which is `[Char]`. So even though the variables stand for *types*, you provide the type arguments indirectly via *values*.
 
 Now let's go back to our code to see how the phantom type variable `n` gets set:
 
