@@ -120,7 +120,6 @@ Now here is a program that contains all the things we've covered so far: you can
 
 import Prelude hiding ((+), (*))
 import qualified Prelude as P ((+), (*))
-import Data.Typeable (Typeable)
 
 data Zero
 data Succ a
