@@ -30,7 +30,7 @@ Example code (using JavaScript):
 This technique is so simple that it even works in the simplest of functional languages. This is what the example above looks like in the [lambda calculus][1]:
 
 ````
-(triple. (triple 2) + 1) (λx. 3 * x)
+(λtriple. (triple 2) + 1) (λx. 3 * x)
 ````
 
 What knowledge was required to answer the question?
