@@ -38,7 +38,7 @@ A = { "x": 1
     , "y": 2
     };
 
-a = function (key) { return A[key]; }
+a = function (arg) { return A[arg]; }
 
 a("x") // => 1
 ```
@@ -57,8 +57,8 @@ B = { "w": 3
 C = { ... };
 
 
-a = function (key) { return A[key]; }
-b = function (key) { return B[key]; }
+a = function (arg) { return A[arg]; }
+b = function (arg) { return B[arg]; }
 c = ...
 
 ```
@@ -69,8 +69,8 @@ It turns out that both issues can be solved at the same time, using the followin
 
 ```javascript
 function forwarder (obj) {
-  return function (key) {
-    return obj[key];
+  return function (arg) {
+    return obj[arg];
   };
 }
 
