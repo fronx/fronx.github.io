@@ -1,0 +1,839 @@
+<!DOCTYPE HTML>
+<html><head><meta charset="UTF-8"><title>HelloWorld</title><script type="text/javascript" src="/usr/local/share/elm/elm-runtime.js"></script><script type="text/javascript">Elm.Native.Audio = {};
+Elm.Native.Audio.make = function(elm) {
+    elm.Native = elm.Native || {};
+    elm.Native.Audio = elm.Native.Audio || {};
+    if (elm.Native.Audio.values) return elm.Native.Audio.values;
+
+    var Signal = Elm.Native.Signal.make(elm);
+    var Maybe = Elm.Maybe.make(elm);
+    var audioRecords = new Array();
+    var nextID = 0;
+
+    var TimeUpdate = {ctor : "TimeUpdate"};
+    var Ended = {ctor : "Ended"};
+    var Created = {ctor : "Created"};
+
+    function Tuple2(fst, snd){
+        return {ctor: "_Tuple2", _0 : fst, _1 : snd};
+    }
+
+    function Properties(duration, currentTime, ended){
+        return { _ : {}, duration : duration, currentTime : currentTime, ended : ended};
+    }
+
+
+    function audio(handler, path, alerts, propHandler, actions) {
+        var sound = new Audio(path);
+        var event = Signal.constant(Tuple2(Created, Properties(0,0,0)));
+        var handle = handler(nextID);
+        audioRecords[nextID++] = sound;
+        Signal.lift(handle)(actions);
+
+        function addAudioListener(eventString, eventConst){
+            sound.addEventListener(eventString, function () {
+                var props = Properties(sound.duration, sound.currentTime, sound.ended);
+                elm.notify(event.id, Tuple2(eventConst, props));
+                var action = propHandler(props);
+                if(Maybe.isJust(action))
+                    handle(action._0)
+            });
+        }
+
+        if(alerts.timeupdate)
+            addAudioListener('timeupdate', TimeUpdate);
+
+        if(alerts.ended)
+            addAudioListener('ended', Ended);
+
+        return event;
+    }
+
+    function play(id){
+        if(!audioRecords[id]) return;
+        audioRecords[id].play();
+    }
+
+    function pause(id){
+        if(!audioRecords[id]) return;
+        audioRecords[id].pause()
+    }
+
+    function seek(id, time){
+        if(!audioRecords[id]) return;
+        audioRecords[id].currentTime = time;
+    }
+
+    return elm.Native.Audio.values = {
+        audio : F5(audio),
+        play : play,
+        pause : pause,
+        seek : F2(seek)
+    };
+
+};
+Elm.HelloWorld = Elm.HelloWorld || {};
+Elm.HelloWorld.make = function (_elm) {
+   "use strict";
+   _elm.HelloWorld = _elm.HelloWorld || {};
+   if (_elm.HelloWorld.values)
+   return _elm.HelloWorld.values;
+   var _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   _A = _N.Array.make(_elm),
+   _E = _N.Error.make(_elm),
+   $moduleName = "HelloWorld";
+   var Basics = Elm.Basics.make(_elm);
+   var Color = Elm.Color.make(_elm);
+   var Drum = Elm.Drum.make(_elm);
+   var DrumPatterns = Elm.DrumPatterns.make(_elm);
+   var Generic = Elm.Generic.make(_elm);
+   var Graphics = Graphics || {};
+   Graphics.Collage = Elm.Graphics.Collage.make(_elm);
+   var Graphics = Graphics || {};
+   Graphics.Element = Elm.Graphics.Element.make(_elm);
+   var Graphics = Graphics || {};
+   Graphics.Input = Elm.Graphics.Input.make(_elm);
+   var Key = Elm.Key.make(_elm);
+   var List = Elm.List.make(_elm);
+   var Maybe = Elm.Maybe.make(_elm);
+   var Native = Native || {};
+   Native.Json = Elm.Native.Json.make(_elm);
+   var Native = Native || {};
+   Native.Ports = Elm.Native.Ports.make(_elm);
+   var Signal = Elm.Signal.make(_elm);
+   var StepSequencer = Elm.StepSequencer.make(_elm);
+   var String = Elm.String.make(_elm);
+   var Text = Elm.Text.make(_elm);
+   var Time = Elm.Time.make(_elm);
+   var _op = {};
+   var bpm = 80;
+   var hihat = Graphics.Input.input(false);
+   var snare = Graphics.Input.input(false);
+   var bass = Graphics.Input.input(false);
+   var initialPattern = List.reverse(_L.fromArray(["  x   x   x   x "
+                                                  ,"    o       o   "
+                                                  ,"oo    oo        "]));
+   var patternInputs = StepSequencer.inputs(initialPattern);
+   var patternSig = Signal.combine(A2(List.map,
+   function (_) {
+      return _.signal;
+   },
+   patternInputs));
+   var tracks = A2(Signal._op["~"],
+   A2(Signal._op["<~"],
+   DrumPatterns.notesAt,
+   A2(DrumPatterns.ticks,bpm,16)),
+   patternSig);
+   var drumSignals = function () {
+      var track = function (n) {
+         return A2(Generic.unmerge,
+         tracks,
+         n);
+      };
+      return _L.fromArray([Signal.merges(_L.fromArray([Key.pressedOneOf(_L.fromArray([_U.chr("j")
+                                                                                     ,_U.chr("k")
+                                                                                     ,_U.chr("l")]))
+                                                      ,bass.signal
+                                                      ,track(0)]))
+                          ,Signal.merges(_L.fromArray([Key.pressedOneOf(_L.fromArray([_U.chr("u")
+                                                                                     ,_U.chr("i")
+                                                                                     ,_U.chr("o")]))
+                                                      ,snare.signal
+                                                      ,track(1)]))
+                          ,Signal.merges(_L.fromArray([Key.pressedOneOf(_L.fromArray([_U.chr("a")
+                                                                                     ,_U.chr("s")
+                                                                                     ,_U.chr("d")]))
+                                                      ,hihat.signal
+                                                      ,track(2)]))]);
+   }();
+   var drumSounds = A2(Drum.sounds,
+   32,
+   drumSignals);
+   var drumInputs = _L.fromArray([bass
+                                 ,snare
+                                 ,hihat]);
+   var drumForms = F2(function (size,
+   drum) {
+      return function () {
+         var handle = A2(Drum.lookup,
+         drum,
+         drumInputs).handle;
+         var src = _L.append("img/",
+         _L.append(String.show(drum),
+         "-Off.png"));
+         var img = F2(function (x,y) {
+            return Graphics.Collage.toForm(A2(Graphics.Input.clickable,
+            handle,
+            true)(A3(Graphics.Element.image,
+            x,
+            y,
+            src)));
+         });
+         var scaled = function (factor) {
+            return Graphics.Collage.scale(Basics.toFloat(size) * factor / 500);
+         };
+         return function () {
+            switch (drum.ctor)
+            {case "Bass":
+               return scaled(1.0)(A2(img,
+                 200,
+                 200));
+               case "HiHat":
+               return scaled(0.26)(A2(img,
+                 523,
+                 800));
+               case "Snare":
+               return scaled(0.18)(A2(img,
+                 520,
+                 343));}
+            _E.Case($moduleName,
+            "between lines 17 and 20");
+         }();
+      }();
+   });
+   var drumSet = function (size) {
+      return function () {
+         var rel = function (n) {
+            return Basics.toFloat(n) / 100 * Basics.toFloat(size) / 2;
+         };
+         var drumForms$ = drumForms(size);
+         return Graphics.Collage.group(_L.fromArray([Graphics.Collage.move({ctor: "_Tuple2"
+                                                                           ,_0: rel(0)
+                                                                           ,_1: rel(-4)})(drumForms$(Drum.Bass))
+                                                    ,Graphics.Collage.move({ctor: "_Tuple2"
+                                                                           ,_0: rel(-48)
+                                                                           ,_1: rel(-5)})(drumForms$(Drum.HiHat))
+                                                    ,Graphics.Collage.move({ctor: "_Tuple2"
+                                                                           ,_0: rel(-22)
+                                                                           ,_1: rel(0)})(drumForms$(Drum.Snare))]));
+      }();
+   };
+   var render = F2(function (_v1,
+   rows) {
+      return function () {
+         switch (_v1.ctor)
+         {case "_Tuple2":
+            return A2(Graphics.Element.flow,
+              Graphics.Element.DDown,
+              _L.fromArray([A3(Graphics.Collage.collage,
+                           _v1._0,
+                           _v1._1,
+                           _L.fromArray([drumSet(800)]))
+                           ,rows]));}
+         _E.Case($moduleName,
+         "between lines 41 and 44");
+      }();
+   });
+   var main = A2(Signal._op["<~"],
+   render({ctor: "_Tuple2"
+          ,_0: 800
+          ,_1: 400}),
+   StepSequencer.boxRows(patternInputs));
+   _elm.HelloWorld.values = {_op: _op
+                            ,drumForms: drumForms
+                            ,drumSet: drumSet
+                            ,drumInputs: drumInputs
+                            ,drumSignals: drumSignals
+                            ,render: render
+                            ,patternInputs: patternInputs
+                            ,patternSig: patternSig
+                            ,tracks: tracks
+                            ,initialPattern: initialPattern
+                            ,drumSounds: drumSounds
+                            ,bass: bass
+                            ,snare: snare
+                            ,hihat: hihat
+                            ,bpm: bpm
+                            ,main: main};
+   return _elm.HelloWorld.values;
+};Elm.Drum = Elm.Drum || {};
+Elm.Drum.make = function (_elm) {
+   "use strict";
+   _elm.Drum = _elm.Drum || {};
+   if (_elm.Drum.values)
+   return _elm.Drum.values;
+   var _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   _A = _N.Array.make(_elm),
+   _E = _N.Error.make(_elm),
+   $moduleName = "Drum";
+   var Audio = Elm.Audio.make(_elm);
+   var Basics = Elm.Basics.make(_elm);
+   var Color = Elm.Color.make(_elm);
+   var Generic = Elm.Generic.make(_elm);
+   var Graphics = Graphics || {};
+   Graphics.Collage = Elm.Graphics.Collage.make(_elm);
+   var Graphics = Graphics || {};
+   Graphics.Element = Elm.Graphics.Element.make(_elm);
+   var List = Elm.List.make(_elm);
+   var Maybe = Elm.Maybe.make(_elm);
+   var Native = Native || {};
+   Native.Json = Elm.Native.Json.make(_elm);
+   var Native = Native || {};
+   Native.Ports = Elm.Native.Ports.make(_elm);
+   var Signal = Elm.Signal.make(_elm);
+   var String = Elm.String.make(_elm);
+   var Text = Elm.Text.make(_elm);
+   var Time = Elm.Time.make(_elm);
+   var _op = {};
+   var play = function (x) {
+      return function () {
+         switch (x)
+         {case false: return Audio.Pause;
+            case true: return Audio.Play;}
+         _E.Case($moduleName,
+         "between lines 32 and 34");
+      }();
+   };
+   var HiHat = {ctor: "HiHat"};
+   var Snare = {ctor: "Snare"};
+   var Bass = {ctor: "Bass"};
+   var lookup = F2(function (drum,
+   _v1) {
+      return function () {
+         switch (_v1.ctor)
+         {case "::": switch (_v1._1.ctor)
+              {case "::":
+                 switch (_v1._1._1.ctor)
+                   {case "::": return function () {
+                           switch (drum.ctor)
+                           {case "Bass": return _v1._0;
+                              case "HiHat":
+                              return _v1._1._1._0;
+                              case "Snare": return _v1._1._0;}
+                           _E.Case($moduleName,
+                           "between lines 20 and 23");
+                        }();}
+                   break;}
+              break;}
+         _E.Case($moduleName,
+         "between lines 20 and 23");
+      }();
+   });
+   var drumSrc = function (drum) {
+      return function () {
+         switch (drum.ctor)
+         {case "Bass": return "bass.wav";
+            case "HiHat":
+            return "hihat.wav";
+            case "Snare":
+            return "snare-drum.wav";}
+         _E.Case($moduleName,
+         "between lines 26 and 29");
+      }();
+   };
+   var sound = F3(function (polyphony,
+   drum,
+   sig) {
+      return Audio.audio({_: {}
+                         ,actions: A2(Signal._op["<~"],
+                         play,
+                         sig)
+                         ,propertiesHandler: function (_v11) {
+                            return function () {
+                               return Maybe.Nothing;
+                            }();
+                         }
+                         ,src: _L.append("audio/",
+                         drumSrc(drum))
+                         ,triggers: Audio.defaultTriggers});
+   });
+   var sounds = F2(function (polyphony,
+   sigs) {
+      return function () {
+         var f = function (_v13) {
+            return function () {
+               switch (_v13.ctor)
+               {case "_Tuple2":
+                  return A2(sound,
+                    polyphony,
+                    _v13._0)(A2(Generic.everyNth,
+                    polyphony,
+                    _v13._1)(A2(lookup,
+                    _v13._0,
+                    sigs)));}
+               _E.Case($moduleName,
+               "between lines 12 and 14");
+            }();
+         };
+         var polyDrums = A2(Generic.mul,
+         _L.fromArray([Bass
+                      ,Snare
+                      ,HiHat]),
+         _L.range(1,polyphony));
+         return List.concat(A2(List.map,
+         List.map(f),
+         polyDrums));
+      }();
+   });
+   _elm.Drum.values = {_op: _op
+                      ,sounds: sounds
+                      ,lookup: lookup
+                      ,drumSrc: drumSrc
+                      ,play: play
+                      ,sound: sound
+                      ,Bass: Bass
+                      ,Snare: Snare
+                      ,HiHat: HiHat};
+   return _elm.Drum.values;
+};Elm.Audio = Elm.Audio || {};
+Elm.Audio.make = function (_elm) {
+   "use strict";
+   _elm.Audio = _elm.Audio || {};
+   if (_elm.Audio.values)
+   return _elm.Audio.values;
+   var _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   _A = _N.Array.make(_elm),
+   _E = _N.Error.make(_elm),
+   $moduleName = "Audio";
+   var Basics = Elm.Basics.make(_elm);
+   var Color = Elm.Color.make(_elm);
+   var Graphics = Graphics || {};
+   Graphics.Collage = Elm.Graphics.Collage.make(_elm);
+   var Graphics = Graphics || {};
+   Graphics.Element = Elm.Graphics.Element.make(_elm);
+   var Keyboard = Elm.Keyboard.make(_elm);
+   var List = Elm.List.make(_elm);
+   var Maybe = Elm.Maybe.make(_elm);
+   var Native = Native || {};
+   Native.Audio = Elm.Native.Audio.make(_elm);
+   var Native = Native || {};
+   Native.Json = Elm.Native.Json.make(_elm);
+   var Native = Native || {};
+   Native.Ports = Elm.Native.Ports.make(_elm);
+   var Set = Elm.Set.make(_elm);
+   var Signal = Elm.Signal.make(_elm);
+   var String = Elm.String.make(_elm);
+   var Text = Elm.Text.make(_elm);
+   var Time = Elm.Time.make(_elm);
+   var _op = {};
+   var AudioBuilder = F4(function (a,
+   b,
+   c,
+   d) {
+      return {_: {}
+             ,actions: d
+             ,propertiesHandler: c
+             ,src: a
+             ,triggers: b};
+   });
+   var Created = {ctor: "Created"};
+   var Ended = {ctor: "Ended"};
+   var TimeUpdate = {ctor: "TimeUpdate"};
+   var defaultTriggers = {_: {}
+                         ,ended: false
+                         ,timeupdate: false};
+   var Triggers = F2(function (a,
+   b) {
+      return {_: {}
+             ,ended: b
+             ,timeupdate: a};
+   });
+   var Properties = F3(function (a,
+   b,
+   c) {
+      return {_: {}
+             ,currentTime: b
+             ,duration: a
+             ,ended: c};
+   });
+   var Seek = function (a) {
+      return {ctor: "Seek",_0: a};
+   };
+   var Pause = {ctor: "Pause"};
+   var Play = {ctor: "Play"};
+   var audio = function (audioBuilder) {
+      return function () {
+         var handleEvent = F2(function (sound,
+         action) {
+            return function () {
+               switch (action.ctor)
+               {case "Pause":
+                  return Native.Audio.pause(sound);
+                  case "Play":
+                  return Native.Audio.play(sound);
+                  case "Seek":
+                  return A2(Native.Audio.seek,
+                    sound,
+                    action._0);}
+               _E.Case($moduleName,
+               "between lines 30 and 33");
+            }();
+         });
+         return A5(Native.Audio.audio,
+         handleEvent,
+         audioBuilder.src,
+         audioBuilder.triggers,
+         audioBuilder.propertiesHandler,
+         audioBuilder.actions);
+      }();
+   };
+   _elm.Audio.values = {_op: _op
+                       ,defaultTriggers: defaultTriggers
+                       ,audio: audio
+                       ,Play: Play
+                       ,Pause: Pause
+                       ,Seek: Seek
+                       ,TimeUpdate: TimeUpdate
+                       ,Ended: Ended
+                       ,Created: Created
+                       ,Properties: Properties
+                       ,Triggers: Triggers
+                       ,AudioBuilder: AudioBuilder};
+   return _elm.Audio.values;
+};Elm.StepSequencer = Elm.StepSequencer || {};
+Elm.StepSequencer.make = function (_elm) {
+   "use strict";
+   _elm.StepSequencer = _elm.StepSequencer || {};
+   if (_elm.StepSequencer.values)
+   return _elm.StepSequencer.values;
+   var _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   _A = _N.Array.make(_elm),
+   _E = _N.Error.make(_elm),
+   $moduleName = "StepSequencer";
+   var Basics = Elm.Basics.make(_elm);
+   var Color = Elm.Color.make(_elm);
+   var DrumPatterns = Elm.DrumPatterns.make(_elm);
+   var Generic = Elm.Generic.make(_elm);
+   var Graphics = Graphics || {};
+   Graphics.Collage = Elm.Graphics.Collage.make(_elm);
+   var Graphics = Graphics || {};
+   Graphics.Element = Elm.Graphics.Element.make(_elm);
+   var Graphics = Graphics || {};
+   Graphics.Input = Elm.Graphics.Input.make(_elm);
+   var List = Elm.List.make(_elm);
+   var Maybe = Elm.Maybe.make(_elm);
+   var Native = Native || {};
+   Native.Json = Elm.Native.Json.make(_elm);
+   var Native = Native || {};
+   Native.Ports = Elm.Native.Ports.make(_elm);
+   var Signal = Elm.Signal.make(_elm);
+   var String = Elm.String.make(_elm);
+   var Text = Elm.Text.make(_elm);
+   var Time = Elm.Time.make(_elm);
+   var _op = {};
+   var indexes = function (l) {
+      return _L.range(0,
+      List.length(l) - 1);
+   };
+   var toggle = F2(function (l,n) {
+      return _L.append(A2(List.take,
+      n,
+      l),
+      _L.append(_L.fromArray([Basics.not(A2(Generic._op["!"],
+      l,
+      n))]),
+      A2(List.drop,n + 1,l)));
+   });
+   var box = F2(function (n,
+   active) {
+      return function () {
+         var c = function () {
+            var _v0 = Generic.even(n);
+            switch (_v0)
+            {case true:
+               return Color.yellow;}
+            return Color.green;
+         }();
+         var c$ = function () {
+            switch (active)
+            {case true: return Color.black;}
+            return c;
+         }();
+         return A3(Graphics.Collage.collage,
+         20,
+         20,
+         _L.fromArray([Graphics.Collage.filled(c$)(Graphics.Collage.square(20))]));
+      }();
+   });
+   var clickableBox = F3(function (handle,
+   actives,
+   n) {
+      return A3(Graphics.Input.clickable,
+      handle,
+      A2(toggle,actives,n),
+      A2(box,
+      n,
+      A2(Generic._op["!"],
+      actives,
+      n)));
+   });
+   var boxRow = function (inp) {
+      return function () {
+         var inpIndexes = A2(Signal._op["<~"],
+         indexes,
+         inp.signal);
+         var boxes = A2(Signal._op["<~"],
+         clickableBox(inp.handle),
+         inp.signal);
+         return A2(Signal._op["<~"],
+         Graphics.Element.flow(Graphics.Element.DRight),
+         A2(Signal._op["~"],
+         A2(Signal._op["<~"],
+         List.map,
+         boxes),
+         inpIndexes));
+      }();
+   };
+   var boxRows = function (inps) {
+      return A2(Signal._op["<~"],
+      Graphics.Element.flow(Graphics.Element.DDown),
+      Signal.combine(A2(List.map,
+      boxRow,
+      inps)));
+   };
+   var toSignal = function (inps) {
+      return Signal.combine(A2(List.map,
+      function (_) {
+         return _.signal;
+      },
+      inps));
+   };
+   var inputs = function (initialPattern) {
+      return A2(List.map,
+      function ($) {
+         return Graphics.Input.input(DrumPatterns.parse($));
+      },
+      initialPattern);
+   };
+   _elm.StepSequencer.values = {_op: _op
+                               ,inputs: inputs
+                               ,toSignal: toSignal
+                               ,box: box
+                               ,clickableBox: clickableBox
+                               ,toggle: toggle
+                               ,indexes: indexes
+                               ,boxRow: boxRow
+                               ,boxRows: boxRows};
+   return _elm.StepSequencer.values;
+};Elm.DrumPatterns = Elm.DrumPatterns || {};
+Elm.DrumPatterns.make = function (_elm) {
+   "use strict";
+   _elm.DrumPatterns = _elm.DrumPatterns || {};
+   if (_elm.DrumPatterns.values)
+   return _elm.DrumPatterns.values;
+   var _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   _A = _N.Array.make(_elm),
+   _E = _N.Error.make(_elm),
+   $moduleName = "DrumPatterns";
+   var Basics = Elm.Basics.make(_elm);
+   var Color = Elm.Color.make(_elm);
+   var Generic = Elm.Generic.make(_elm);
+   var Graphics = Graphics || {};
+   Graphics.Collage = Elm.Graphics.Collage.make(_elm);
+   var Graphics = Graphics || {};
+   Graphics.Element = Elm.Graphics.Element.make(_elm);
+   var List = Elm.List.make(_elm);
+   var Maybe = Elm.Maybe.make(_elm);
+   var Native = Native || {};
+   Native.Json = Elm.Native.Json.make(_elm);
+   var Native = Native || {};
+   Native.Ports = Elm.Native.Ports.make(_elm);
+   var Signal = Elm.Signal.make(_elm);
+   var String = Elm.String.make(_elm);
+   var Text = Elm.Text.make(_elm);
+   var Time = Elm.Time.make(_elm);
+   var _op = {};
+   var notesAt$ = F2(function (tick,
+   notes) {
+      return function () {
+         var idx = A2(Basics.mod,
+         tick,
+         List.length(notes));
+         return A2(Generic._op["!"],
+         notes,
+         idx);
+      }();
+   });
+   var notesAt = F2(function (tick,
+   notess) {
+      return A2(List.map,
+      notesAt$(tick),
+      notess);
+   });
+   var ticks = F2(function (bpm,
+   grid) {
+      return Signal.count(Time.every(Time.minute / (bpm * (grid / 4))));
+   });
+   var parseNote = function (c) {
+      return function () {
+         switch (c + "")
+         {case "o": return true;
+            case "x": return true;}
+         return false;
+      }();
+   };
+   var parse = function (s) {
+      return A2(List.map,
+      parseNote,
+      String.toList(s));
+   };
+   _elm.DrumPatterns.values = {_op: _op
+                              ,parse: parse
+                              ,parseNote: parseNote
+                              ,ticks: ticks
+                              ,notesAt: notesAt
+                              ,notesAt$: notesAt$};
+   return _elm.DrumPatterns.values;
+};Elm.Generic = Elm.Generic || {};
+Elm.Generic.make = function (_elm) {
+   "use strict";
+   _elm.Generic = _elm.Generic || {};
+   if (_elm.Generic.values)
+   return _elm.Generic.values;
+   var _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   _A = _N.Array.make(_elm),
+   _E = _N.Error.make(_elm),
+   $moduleName = "Generic";
+   var Basics = Elm.Basics.make(_elm);
+   var Color = Elm.Color.make(_elm);
+   var Graphics = Graphics || {};
+   Graphics.Collage = Elm.Graphics.Collage.make(_elm);
+   var Graphics = Graphics || {};
+   Graphics.Element = Elm.Graphics.Element.make(_elm);
+   var List = Elm.List.make(_elm);
+   var Maybe = Elm.Maybe.make(_elm);
+   var Native = Native || {};
+   Native.Json = Elm.Native.Json.make(_elm);
+   var Native = Native || {};
+   Native.Ports = Elm.Native.Ports.make(_elm);
+   var Signal = Elm.Signal.make(_elm);
+   var String = Elm.String.make(_elm);
+   var Text = Elm.Text.make(_elm);
+   var Time = Elm.Time.make(_elm);
+   var _op = {};
+   var indexedMap = F2(function (f,
+   xs) {
+      return A3(List.zipWith,
+      f,
+      _L.range(0,List.length(xs) - 1),
+      xs);
+   });
+   var even = function (n) {
+      return _U.eq(A2(Basics.mod,
+      n,
+      2),
+      0);
+   };
+   _op["!"] = F2(function (xs,i) {
+      return List.head(A2(List.drop,
+      i,
+      xs));
+   });
+   var unmerge = F2(function (s,
+   n) {
+      return A2(Signal._op["<~"],
+      function (xs) {
+         return A2(_op["!"],xs,n);
+      },
+      s);
+   });
+   var mul = F2(function (xs,ys) {
+      return A2(List.map,
+      function (x) {
+         return A2(List.map,
+         function (y) {
+            return {ctor: "_Tuple2"
+                   ,_0: x
+                   ,_1: y};
+         },
+         ys);
+      },
+      xs);
+   });
+   var modCount = F2(function (n,
+   sig) {
+      return function () {
+         var f = function (cnt) {
+            return function () {
+               switch (cnt)
+               {case 0: return -1;}
+               return A2(Basics.mod,cnt - 1,n);
+            }();
+         };
+         return A2(Signal._op["<~"],
+         f,
+         Signal.count(sig));
+      }();
+   });
+   var everyNth = F3(function (n,
+   x,
+   s) {
+      return A3(Signal.keepWhen,
+      A2(Signal._op["<~"],
+      F2(function (x,y) {
+         return _U.eq(x,y);
+      })(x - 1),
+      A2(modCount,n,s)),
+      false,
+      s);
+   });
+   _elm.Generic.values = {_op: _op
+                         ,everyNth: everyNth
+                         ,modCount: modCount
+                         ,mul: mul
+                         ,unmerge: unmerge
+                         ,even: even
+                         ,indexedMap: indexedMap};
+   return _elm.Generic.values;
+};Elm.Key = Elm.Key || {};
+Elm.Key.make = function (_elm) {
+   "use strict";
+   _elm.Key = _elm.Key || {};
+   if (_elm.Key.values)
+   return _elm.Key.values;
+   var _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   _A = _N.Array.make(_elm),
+   _E = _N.Error.make(_elm),
+   $moduleName = "Key";
+   var Basics = Elm.Basics.make(_elm);
+   var Char = Elm.Char.make(_elm);
+   var Color = Elm.Color.make(_elm);
+   var Graphics = Graphics || {};
+   Graphics.Collage = Elm.Graphics.Collage.make(_elm);
+   var Graphics = Graphics || {};
+   Graphics.Element = Elm.Graphics.Element.make(_elm);
+   var Keyboard = Elm.Keyboard.make(_elm);
+   var List = Elm.List.make(_elm);
+   var Maybe = Elm.Maybe.make(_elm);
+   var Native = Native || {};
+   Native.Json = Elm.Native.Json.make(_elm);
+   var Native = Native || {};
+   Native.Ports = Elm.Native.Ports.make(_elm);
+   var Signal = Elm.Signal.make(_elm);
+   var String = Elm.String.make(_elm);
+   var Text = Elm.Text.make(_elm);
+   var Time = Elm.Time.make(_elm);
+   var _op = {};
+   var pressed = function (key) {
+      return function () {
+         var sig = Keyboard.isDown(Char.toCode(key));
+         return A3(Signal.keepWhen,
+         sig,
+         false,
+         sig);
+      }();
+   };
+   var pressedOneOf = function (keys) {
+      return A2(List.foldr1,
+      Signal.merge,
+      A2(List.map,pressed,keys));
+   };
+   _elm.Key.values = {_op: _op
+                     ,pressed: pressed
+                     ,pressedOneOf: pressedOneOf};
+   return _elm.Key.values;
+};</script></head><body><script type="text/javascript">Elm.fullscreen(Elm.HelloWorld)</script><noscript></noscript></body></html>
