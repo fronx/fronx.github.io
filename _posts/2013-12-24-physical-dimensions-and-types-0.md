@@ -4,7 +4,7 @@ title:  "Physical dimensions and types &mdash; Part 0"
 subtitle: "Defining the problem"
 date:   2013-12-24
 categories: haskell, types
-summary: "How do you prevent a program that attempts invalid operations on physical quantities from running? Basically by representing them as types. Basically."
+excerpt: "How do you prevent a program that attempts invalid operations on physical quantities from running? Basically by representing them as types. Basically."
 ---
 
 It is quite common to write programs that deal with physical quantities like `1.2m` or `20Hz` without representing the dimensional part in the program. Instead, such values are represented as numbers, like in the following example program:

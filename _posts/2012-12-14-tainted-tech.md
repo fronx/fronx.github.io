@@ -2,7 +2,7 @@
 layout: post
 title:  "Tainted tech"
 date:   2012-12-14
-summary: "No, you can't eat that tech. Someone chewed on it."
+excerpt: "No, you can't eat that tech. Someone chewed on it."
 ---
 
 You've heard of the 5-second-rule, right: if something fell on the ground, it's okay to eat it within a window of 5 seconds. After that, it's tainted. It's not good anymore. It's not food. You can't eat it. Other ways of tainting food are bringing it into contact with soap, garbage, other people's saliva, watching an insect land on it and do something that can only be disgusting to it, or mixing it with inedible things.

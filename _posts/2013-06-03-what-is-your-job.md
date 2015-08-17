@@ -2,7 +2,7 @@
 layout: post
 title:  "What is your job?"
 date:   2013-06-03
-summary: "Thoughts on dependencies and responsibility."
+excerpt: "Thoughts on dependencies and responsibility."
 ---
 
 Here are some thoughts on dependencies, what they are good for, and how they can make your life harder. They are written from the perspective of a programmer.

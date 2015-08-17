@@ -2,7 +2,7 @@
 layout: post
 title:  "Decisions and self-assessment"
 date:   2013-07-14
-summary: "Personal thoughts when I decided to quit my job."
+excerpt: "Personal thoughts when I decided to quit my job."
 ---
 
 I decided to quit my job without knowing what exactly I should do afterwards. Two months to go before I will be unemployed! What this means is that I've essentially set myself a deadline for coming up with a plan for what to do next. It's the first time I'm doing this and it's quite an interesting experience.

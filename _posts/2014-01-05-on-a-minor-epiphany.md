@@ -2,7 +2,7 @@
 layout: post
 title:  "On a minor epiphany"
 date:   2014-01-05
-summary: "How do you invoke an anonymous function using a custom name if all you have is first-class functions? It's quite simple, really."
+excerpt: "How do you invoke an anonymous function using a custom name if all you have is first-class functions? It's quite simple, really."
 ---
 
 I would like to share with you a minor epiphany I recently had. It is related to a question that I found hard to answer, even though I knew everything that should have enabled me to answer it easily. To find out if it was just me, I asked the same question to a few of my friends, and they too were puzzled for quite some time, even though they also knew everything required to answer it.

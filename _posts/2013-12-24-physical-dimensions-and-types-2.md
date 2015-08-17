@@ -4,7 +4,7 @@ title:  "Physical dimensions and types &mdash; Part 2"
 subtitle: "Phantom types"
 date:   2013-12-24
 categories: haskell, types
-summary: "This post gets us about half way to a usable physical dimensions library. We're going to use type-level numbers as type arguments in phantom types, and we're going to make use of some type-level arithmetic."
+excerpt: "This post gets us about half way to a usable physical dimensions library. We're going to use type-level numbers as type arguments in phantom types, and we're going to make use of some type-level arithmetic."
 ---
 
 <i>[Part 1][1] of this series introduced type-level numbers as a first step to solve issue 1 described in [part 0][0]. If you haven't read them, you may want to do that first to make sure you understand the context.</i>

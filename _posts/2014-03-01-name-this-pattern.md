@@ -2,7 +2,7 @@
 layout: post
 title:  "Name this pattern"
 date:   2014-03-01
-summary: "How to hide the fact that we're implementing functions via dictionaries; in JavaScript."
+excerpt: "How to hide the fact that we're implementing functions via dictionaries; in JavaScript."
 ---
 
 Sometimes it is possible to give an equivalent implementation of a function in the form of a dictionary, or, in the JavaScript world, an object:

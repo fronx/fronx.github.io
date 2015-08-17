@@ -2,7 +2,7 @@
 layout: post
 title:  "Solving \"problems\""
 date:   2012-11-11
-summary: "A \"problem\" may or may not actually be a problem."
+excerpt: "A \"problem\" may or may not actually be a problem."
 ---
 
 Here is how I know that programmers don't know what problems are: they keep saying that what they do is solve problems, even though they're not. Not uncommonly, the process of how they pick their "problems" goes something like this:

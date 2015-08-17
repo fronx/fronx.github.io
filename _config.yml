@@ -6,3 +6,4 @@ permalink: /:year-:month-:day--:title
 name: fronx.github.io
 description: I write about programming.
 url: http://fronx.github.io/
+excerpt_separator: ""
