@@ -5,6 +5,8 @@ date:   2015-08-17
 excerpt: "This is a post about different ways of looking at things. Specifically functions and (binary) relations. And numbers."
 ---
 
+<script type="text/javascript" src="/js/namelessNumbers.js"></script>
+
 when i first learned about functions at school, i remember that they all looked kind of like this:
 
 // illustration of linear and quadratic function graphs
@@ -22,14 +24,14 @@ another flaw of those graphs is that you can’t see very well that functions ar
 
 yet another flaw: if the two axes are both numbers, why are they so far apart from each other? it’s not like the numbers on the horizontal axis are somehow different numbers than those on the vertical axis. but there really only is one number called “1”, and only one number called “2”. The numbers on the two axes refer to the exact same numbers, and yet, they don’t appear as the same things.
 
-## objects pointing to other objects to the rescue!
+## much better: objects pointing at other objects
 
 i don’t know about you, but i’m not super happy with the flaws we’ve discovered. what i want is a visualization that gives all the objects an identity. like this one:
 
 <table>
   <tr><td>
-    <svg id="namelessNumbers1" width="512" height="256"></svg>
-    <script type="text/javascript" src="/js/namelessNumbers1.js"></script>
+    <svg id="numbers" width="512" height="256"></svg>
+    <script type="text/javascript" src="/js/1_numbers.js"></script>
   </td></tr>
   <tr class="figureCaption"><td>
     unordered numbered circles
