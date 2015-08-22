@@ -39,23 +39,34 @@ function makeGraph(selector) {
   var radius = 15;
   var coords = randomPairs(15, 7, numbers.length);
 
-  var circle = vis.selectAll("circle")
-    .data(numbers, function(d) { return d; });
+  var number = vis.selectAll("g.number")
+    .data(numbers, function(d) { return d; })
+    .enter().append("g")
+      .attr("class", "number")
+      .attr("transform", function (d) {
+        var x = coords[d][0] * gridSize + radius*2 + strokeWidth;
+        var y = coords[d][1] * gridSize + radius*2 + strokeWidth;
+        return "translate(" + x + ","+ y + ")";
+      });
 
-  circle.enter().append("circle")
+  number.append("circle")
     .attr('stroke-width', strokeWidth)
     .attr('stroke', colorScale(10))
     .attr('fill', 'none')
     .attr('opacity', 0.70)
-    .attr('cx', function (d) { return coords[d][0] * gridSize + radius*2 + strokeWidth; })
-    .attr('cy', function (d) { return coords[d][1] * gridSize + radius*2 + strokeWidth; })
+    // .attr('cx', function (d) { return coords[d][0] * gridSize + radius*2 + strokeWidth; })
+    // .attr('cy', function (d) { return coords[d][1] * gridSize + radius*2 + strokeWidth; })
     .attr('r', radius);
 
-  circle.exit().remove();
+  number.append("text")
+      .attr('x', -4)
+      .attr('y', 5)
+      .attr('opacity', 0.7)
+      .text(function (d) { return d; });
 
   return {
     vis: vis,
-    circle: circle,
+    number: number,
   };
 }
 
