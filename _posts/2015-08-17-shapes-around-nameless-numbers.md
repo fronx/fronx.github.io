@@ -41,7 +41,16 @@ i don’t know about you, but i’m not super happy with the flaws we’ve disco
 
 better! now let’s visualize the `succ` function. all we need to do for that is give every object a little arm that can point at another object, and then we have to make them point to the right objects.
 
-// illustration of bag of objects with arms pointing at each other
+<table>
+  <tr><td>
+    <svg id="succ" width="512" height="256"></svg>
+    <script type="text/javascript" src="/js/2_succ.js"></script>
+  </td></tr>
+  <tr class="figureCaption"><td>
+    succ(x) = x + 1
+  </td></tr>
+  <tr>
+</table>
 
 there you have it. it’s a representation of the function succ(x) = x + 1. you can see how it takes you from 1 to 2 and from 2 to 3 and from 5 to 6, and so on. it doesn’t have the same flaws as more traditional graphs: every number is its own object, and you can see the direction. but what a mess! they are pointing in all kinds of directions! how about we ask the objects to line up? like a really long snake.
 

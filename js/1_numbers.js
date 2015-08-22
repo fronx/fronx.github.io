@@ -1,3 +1,3 @@
 (function () {
-  var vis = NamelessNumbers.makeGraph('#numbers');
+  var graph = NamelessNumbers.makeGraph('#numbers');
 })();

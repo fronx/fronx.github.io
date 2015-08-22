@@ -36,25 +36,27 @@ function makeGraph(selector) {
   var maxX = 512;
   var maxY = 256;
   var gridSize = 32;
-
-  numbers.forEach(function (num) {
-    vis.append('svg:circle')
-      .attr('stroke-width', strokeWidth)
-      .attr('stroke', colorScale(10))
-      .attr('fill', 'none')
-      .attr('opacity', 0.70);
-  });
-
-  var circle = vis.selectAll('circle');
-  circle.data(numbers);
   var radius = 15;
   var coords = randomPairs(15, 7, numbers.length);
 
-  circle
+  var circle = vis.selectAll("circle")
+    .data(numbers, function(d) { return d; });
+
+  circle.enter().append("circle")
+    .attr('stroke-width', strokeWidth)
+    .attr('stroke', colorScale(10))
+    .attr('fill', 'none')
+    .attr('opacity', 0.70)
     .attr('cx', function (d) { return coords[d][0] * gridSize + radius*2 + strokeWidth; })
     .attr('cy', function (d) { return coords[d][1] * gridSize + radius*2 + strokeWidth; })
     .attr('r', radius);
-  return vis;
+
+  circle.exit().remove();
+
+  return {
+    vis: vis,
+    circle: circle,
+  };
 }
 
 return {
