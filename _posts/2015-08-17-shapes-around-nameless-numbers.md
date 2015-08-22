@@ -22,10 +22,20 @@ another flaw of those graphs is that you can’t see very well that functions ar
 
 yet another flaw: if the two axes are both numbers, why are they so far apart from each other? it’s not like the numbers on the horizontal axis are somehow different numbers than those on the vertical axis. but there really only is one number called “1”, and only one number called “2”. The numbers on the two axes refer to the exact same numbers, and yet, they don’t appear as the same things.
 
-## objects with arms to the rescue!
-i don’t know about you, but i’m not super happy with the flaws we’ve discovered. what i want is a visualization that gives all the objects an identity. if there is a function that i want to be able to point at different objects is a picture and say “this is 3 and that is 9”. like this one:
+## objects pointing to other objects to the rescue!
 
-// numbered faces inside of a circle, unordered
+i don’t know about you, but i’m not super happy with the flaws we’ve discovered. what i want is a visualization that gives all the objects an identity. like this one:
+
+<table>
+  <tr><td>
+    <svg id="namelessNumbers1" width="512" height="256"></svg>
+    <script type="text/javascript" src="/js/namelessNumbers1.js"></script>
+  </td></tr>
+  <tr class="figureCaption"><td>
+    unordered numbered circles
+  </td></tr>
+  <tr>
+</table>
 
 better! now let’s visualize the `succ` function. all we need to do for that is give every object a little arm that can point at another object, and then we have to make them point to the right objects.
 

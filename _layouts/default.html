@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-      <meta charset="utf-8">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
       <title>{{ page.title }}</title>
       <meta name="viewport" content="width=device-width">
@@ -9,14 +9,13 @@
       <link rel="stylesheet" href="/css/syntax.css">
       <link rel="stylesheet" href="/css/main.css">
       <link rel="alternate" type="application/rss+xml" title="{{ site.name }}" href="{{ site.url }}feed.xml">
+      <script type="text/javascript" src="/lib/d3.min.js"></script>
   </head>
   <body>
     <div class="site">
       <div class="header">
         <a class="title" href="/">{{ site.name }}</a>
-        I write code for fun, and sometimes I write about the things I discover along the way.
-        <br />
-        <a href="http://fronx.de">about</a>
+        &nbsp;&nbsp; // &nbsp; also <a href="http://twitter.com/fronx">@fronx</a>, <a href="http://twitter.com/fronxer">@fronxer</a>
       </div>
 
       {{ content }}

@@ -69,7 +69,6 @@ ul.posts .title span:after {
 }
 .header a {
   display: inline-block;
-  padding-right: 4em;
 }
 
 /*****************************************************************************/
@@ -112,4 +111,15 @@ p code {
   padding: 0px 5px;
   background-color: #F8F8F8;
   border-radius: 3px;
+}
+
+table {
+  display: table;
+  border-collapse: separate;
+  border-spacing: 4px;
+}
+
+.figureCaption {
+  text-align: center;
+  font-family: sans-serif;
 }
