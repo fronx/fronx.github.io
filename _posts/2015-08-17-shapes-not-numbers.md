@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Shapes around nameless numbers"
+title:  "shapes, not numbers"
 date:   2015-08-17
 excerpt: "This is a post about different ways of looking at things. Specifically functions and (binary) relations. And numbers."
 ---
@@ -13,7 +13,7 @@ when i first learned about functions at school, i remember that they all looked 
 
 since that time, many years ago, i’ve had many realizations about functions, some of which are related to programming, which i do for a living, and some of which just make me feel happy for no clear reason when i think about them. what i am trying to do with this article is share some of that positive feeling.
 
-## those graphs, they have flaws
+## those graphs have flaws
 let’s look at some aspects of those traditional graphs and see what they communicate. so there’s a line on top of a coordinate system. the fact that it’s a line and not dots or crosses or something else tells us that we’re looking at something continuous, meaning that between two positions, there are always more positions. sometimes you see graphs that have both dots and also lines between them. what those communicate is that it’s useful to imagine many more points between the points that actually exist. for whatever reason. here are the three kinds of graphs beside each other:
 
 // illustration of a line, a line with dots, and just dots
@@ -24,13 +24,13 @@ another flaw of those graphs is that you can’t see very well that functions ar
 
 yet another flaw: if the two axes are both numbers, why are they so far apart from each other? it’s not like the numbers on the horizontal axis are somehow different numbers than those on the vertical axis. but there really only is one number called “1”, and only one number called “2”. The numbers on the two axes refer to the exact same numbers, and yet, they don’t appear as the same things.
 
-## much better: objects pointing at other objects
+## objects pointing at other objects
 
 i don’t know about you, but i’m not super happy with the flaws we’ve discovered. what i want is a visualization that gives all the objects an identity. like this one:
 
 <table>
   <tr><td>
-    <svg id="numbers" width="512" height="256"></svg>
+    <svg id="numbers" width="550" height="280"></svg>
     <script type="text/javascript" src="/js/1_numbers.js"></script>
   </td></tr>
   <tr class="figureCaption"><td>
@@ -39,11 +39,11 @@ i don’t know about you, but i’m not super happy with the flaws we’ve disco
   <tr>
 </table>
 
-better! now let’s visualize the `succ` function. all we need to do for that is give every object a little arm that can point at another object, and then we have to make them point to the right objects.
+better! now let’s visualize the `succ` function. all we need to do for that is give every object the ability to point at one other object, and then we have to make them point to the right objects.
 
 <table>
   <tr><td>
-    <svg id="succ" width="512" height="256"></svg>
+    <svg id="succ" width="550" height="280"></svg>
     <script type="text/javascript" src="/js/2_succ.js"></script>
   </td></tr>
   <tr class="figureCaption"><td>
@@ -52,7 +52,7 @@ better! now let’s visualize the `succ` function. all we need to do for that is
   <tr>
 </table>
 
-there you have it. it’s a representation of the function succ(x) = x + 1. you can see how it takes you from 1 to 2 and from 2 to 3 and from 5 to 6, and so on. it doesn’t have the same flaws as more traditional graphs: every number is its own object, and you can see the direction. but what a mess! they are pointing in all kinds of directions! how about we ask the objects to line up? like a really long snake.
+there we have it: a representation of the function succ(x) = x + 1. you can see how it takes you from 0 to 1 and from 1 to 2 and from 5 to 6, and so on. it doesn’t have the same flaws as more traditional graphs: every number is its own object, and you can see the direction. but what a mess! they are pointing in all kinds of directions! how about we ask the objects to line up? like a really long snake.
 
 // illustration of objects lining up as a snake
 
@@ -93,7 +93,7 @@ this hints at a mathematical property of “less than” that has a name: transi
 
 discovering that a relation is transitive is a great thing! what it means is that there is a more compact representation, a representation that uses way fewer arms between objects with no loss of information, so it can still be used to answer the same questions.
 
-## the numbers, they are in the way
+## the numbers are in the way
 you may wonder why i keep removing numbers from pictures. aren’t they helpful for understanding them better? they can be, but at the same time, they can make it easy to cheat and use knowledge that’s not actually in the picture, just because it’s something you know about the numbers involved. for example, if i show you the following picture and asked you, “is 4 equal to 4?”, what would you answer?
 
 // illustration of greater than with labels
