@@ -1,74 +1,97 @@
 NamelessNumbers = (function () {
 
-function randomInt(limit) {
-  return Math.floor(Math.random() * limit);
-}
-
-function randomPairs(limitX, limitY, n) {
-  if (limitX * limitY < n) throw "nope. sorry. you can't generate " + n + " pairs within limits " + [limitX, limitY];
-  var result = [];
-  var __set = new Set();
-  var pair, key;
-  while (__set.size < n) {
-    pair = [randomInt(limitX), randomInt(limitY)];
-    key = pair.toString();
-    if (!__set.has(key)) {
-      __set.add(key);
-      result.push(pair);
-    }
-  }
-  return result;
-}
-
-var numbers = [0,1,2,3,4,5,6,7]; // ,8,9,10,11,12,13,14,15];
-var gridCoords = randomPairs(15, 7, numbers.length);
 var colorScale = d3.scale.category10();
 colorScale.domain[d3.range(0, 10, 1)];
-var maxX = 512;
-var maxY = 256;
-var gridSize = 32;
-var radius = 15;
 
-var coords = gridCoords.map(function (xy) {
-  return [
-    xy[0] * gridSize + radius*2 + 20,
-    xy[1] * gridSize + radius*2 + 20
-  ];
-});
+function makeGraph(svg, nodes, links) {
+  var force = d3.layout.force()
+    .nodes(d3.values(nodes))
+    .links(links)
+    .size([800, 256])
+    .linkDistance(60)
+    .charge(-300)
+    .on("tick", tick)
+    .start();
 
-function makeGraph(svg) {
+  svg.append("defs").selectAll("marker")
+      .data(["arrow"])
+    .enter().append("marker")
+      .attr("id", function(d) { return d; })
+      .attr("viewBox", "0 -3 13 7")
+      .attr("refX", 25)
+      .attr("refY", -3)
+      .attr("overflow", "show")
+      .attr("markerWidth", 16)
+      .attr("markerHeight", 16)
+      .attr("orient", "auto")
+    .append("path")
+      .attr("d", "M0,-6L12,0L0,6");
+
+  var path = svg.append("g").selectAll(".link")
+      .data(force.links())
+    .enter().append("path")
+      .attr("class", function(d) { return "link " + d.label; })
+      .attr('fill', 'none')
+      .attr('stroke-width', 0.7)
+      .attr('stroke', '#000')
+      .attr("marker-end", function(d) { return "url(#arrow)"; });
+
   var number = svg.selectAll("g.number")
-    .data(numbers, function(d) { return d; })
+    .data(force.nodes())
     .enter().append("g")
       .attr("class", "number")
-      .attr("transform", function (d) {
-        var x = coords[d][0];
-        var y = coords[d][1];
-        return "translate(" + x + ","+ y + ")";
-      });
+      .call(force.drag);
 
   number.append("circle")
     .attr('fill', colorScale(0))
-    .attr('r', radius);
+    .attr('stroke', 'red')
+    .attr('r', 12);
 
   number.append("text")
       .attr('x', -4)
       .attr('y', 5)
       .attr('fill', 'white')
-      .text(function (d) { return d; });
+      .text(function (d) { return d.name; });
+
+  function transform(d) {
+    return "translate(" + d.x + "," + d.y + ")";
+  }
+
+  function tick() {
+    path.attr("d", linkArc);
+    number.attr("transform", transform);
+  }
+
+  function linkArc(d) {
+    var dx = d.target.x - d.source.x,
+        dy = d.target.y - d.source.y,
+        dr = Math.sqrt(dx * dx + dy * dy);
+    return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
+  }
 
   return {
     number: number,
   };
 }
 
+function link(source, target, label) {
+  return {source: source, target: target, label: label};
+}
+
+function linkLine(list, label) {
+  var result = [];
+  list.forEach(function (item, index) {
+    if (index < list.length - 1)
+      result.push(link(list[index], list[index + 1], label));
+  });
+  return result;
+}
+
 return {
-  randomPairs: randomPairs,
-  numbers: numbers,
-  gridCoords: gridCoords,
-  coords: coords,
   colorScale: colorScale,
   makeGraph: makeGraph,
+  link: link,
+  linkLine: linkLine,
 };
 
 }());

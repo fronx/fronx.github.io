@@ -52,13 +52,9 @@ better! now let’s visualize the `succ` function. all we need to do for that is
   <tr>
 </table>
 
-there we have it: a representation of the function succ(x) = x + 1. you can see how it takes you from 0 to 1 and from 1 to 2 and from 5 to 6, and so on. it doesn’t have the same flaws as more traditional graphs: every number is its own object, and you can see the direction. but what a mess! they are pointing in all kinds of directions! how about we ask the objects to line up? like a really long snake.
+there we have it: a representation of the function succ(x) = x + 1. you can see how it takes you from 0 to 1 and from 1 to 2 and from 5 to 6, and so on. it doesn’t have the same flaws as more traditional graphs: every number is its own object, and you can see the direction from input to output in the form of arrows. one thing that's nice about this visualization is that the chain of numbers can be arranged in any way without changing its meaning. it doesn't matter if all the numbers line up left to right or right to left or not at all.
 
-// illustration of objects lining up as a snake
-
-neat! what’s nice about this arrangement is that the snake could be arranged in any way—we would still be able to recognize it. imagine it floating around on the screen without changing what it is. actually, just use your mouse and move over it, and the snake will follow you! :D
-
-now let’s go one step further and also remove the number labels.
+what happens if we remove the number labels? does that change the meaning?
 
 // illustration of unlabeled object snake
 
