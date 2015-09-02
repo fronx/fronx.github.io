@@ -5,6 +5,20 @@ date:   2015-08-17
 excerpt: "This is a post about different ways of looking at things. Specifically functions and (binary) relations. And numbers."
 ---
 
+<style>
+.link {
+  fill: none;
+  stroke-width: 1.7;
+}
+.link.succ {
+  stroke: green;
+}
+
+.link.pred {
+  stroke: blue;
+}
+</style>
+
 <script type="text/javascript" src="/js/namelessNumbers.js"></script>
 
 when i first learned about functions at school, i remember that they all looked kind of like this:
@@ -30,7 +44,7 @@ i don’t know about you, but i’m not super happy with the flaws we’ve disco
 
 <table>
   <tr><td>
-    <svg id="numbers" width="550" height="280"></svg>
+    <svg id="numbers" width="800" height="280"></svg>
     <script type="text/javascript" src="/js/1_numbers.js"></script>
   </td></tr>
   <tr class="figureCaption"><td>
@@ -43,7 +57,7 @@ better! now let’s visualize the `succ` function. all we need to do for that is
 
 <table>
   <tr><td>
-    <svg id="succ" width="550" height="280"></svg>
+    <svg id="succ" width="800" height="280"></svg>
     <script type="text/javascript" src="/js/2_succ.js"></script>
   </td></tr>
   <tr class="figureCaption"><td>
@@ -56,13 +70,29 @@ there we have it: a representation of the function succ(x) = x + 1. you can see 
 
 what happens if we remove the number labels? does that change the meaning?
 
-// illustration of unlabeled object snake
+<table>
+  <tr><td>
+    <svg id="succ-nameless" width="800" height="280"></svg>
+    <script type="text/javascript" src="/js/3_succ_nameless.js"></script>
+  </td></tr>
+  <tr class="figureCaption"><td>
+    a chain of nameless objects
+  </td></tr>
+  <tr>
+</table>
 
-here is a question: is that still the same function, or does removing the numbers somehow make it ambiguous? you can still get from one object to the next. they are still a snake-like thing. but consider for example the function pred(x) = x - 1, i.e. the function that knows that you get the predecessor of a number x by subtracting 1 from it. if we draw the two beside each other, you can see that there are only two things that distinguish them: 1. the positioning of the objects, and 2. the labels on the arrows. but we’ve said earlier that the positions are not meaningful, or at least they aren’t supposed to be. that leaves the function name as the only way to distinguish `succ` and `pred`.
+it clearly is a chain of objects, but can we say that it is still the same function as before or does removing the numbers make it ambiguous? the answer is that it is ambiguous. there is more than one function with that exact same shape. consider the function that, given a number, returns the number before it. the only difference between that function and the `succ` function is the direction of the arrows.
 
-something interesting happens when we put the two together into one picture:
-
-// illustration of “predecessor” and “successor” in one snake
+<table>
+  <tr><td>
+    <svg id="succ-pred" width="800" height="280"></svg>
+    <script type="text/javascript" src="/js/4_succ_pred.js"></script>
+  </td></tr>
+  <tr class="figureCaption"><td>
+    succ(x) = x + 1 and pred(x) = x - 1
+  </td></tr>
+  <tr>
+</table>
 
 what that picture shows is that one is the inverse of the other, meaning that if you follow the succ arrow from one number to another, and then you follow the pred arrow from there, you end up at the same number as before, and vice versa. let’s compare the traditional way of drawing functions in a coordinate system:
 

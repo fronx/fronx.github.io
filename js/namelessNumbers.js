@@ -18,11 +18,11 @@ function makeGraph(svg, nodes, links) {
     .enter().append("marker")
       .attr("id", function(d) { return d; })
       .attr("viewBox", "0 -3 13 7")
-      .attr("refX", 25)
-      .attr("refY", -3)
+      .attr("refX", 22)
+      .attr("refY", -2.5)
       .attr("overflow", "show")
-      .attr("markerWidth", 16)
-      .attr("markerHeight", 16)
+      .attr("markerWidth", 8)
+      .attr("markerHeight", 8)
       .attr("orient", "auto")
     .append("path")
       .attr("d", "M0,-6L12,0L0,6");
@@ -32,7 +32,7 @@ function makeGraph(svg, nodes, links) {
     .enter().append("path")
       .attr("class", function(d) { return "link " + d.label; })
       .attr('fill', 'none')
-      .attr('stroke-width', 0.7)
+      .attr('stroke-width', 1.7)
       .attr('stroke', '#000')
       .attr("marker-end", function(d) { return "url(#arrow)"; });
 
@@ -51,7 +51,7 @@ function makeGraph(svg, nodes, links) {
       .attr('x', -4)
       .attr('y', 5)
       .attr('fill', 'white')
-      .text(function (d) { return d.name; });
+      .text(function (d) { return d.label; });
 
   function transform(d) {
     return "translate(" + d.x + "," + d.y + ")";
@@ -82,7 +82,7 @@ function linkLine(list, label) {
   var result = [];
   list.forEach(function (item, index) {
     if (index < list.length - 1)
-      result.push(link(list[index], list[index + 1], label));
+      result.push(link(list[index].name, list[index + 1].name, label));
   });
   return result;
 }
