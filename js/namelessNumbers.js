@@ -4,10 +4,10 @@ var colorScale = d3.scale.category10();
 colorScale.domain[d3.range(0, 10, 1)];
 
 function makeGraph(svg, nodes, links) {
-  var force = d3.layout.force()
+  var layout = d3.layout.force()
     .nodes(d3.values(nodes))
     .links(links)
-    .size([800, 256])
+    .size([svg.attr('width'), svg.attr('height')])
     .linkDistance(60)
     .charge(-300)
     .on("tick", tick)
@@ -17,7 +17,7 @@ function makeGraph(svg, nodes, links) {
       .data(["arrow"])
     .enter().append("marker")
       .attr("id", function(d) { return d; })
-      .attr("viewBox", "0 -3 13 7")
+      .attr("viewBox", "0 -5 13 7")
       .attr("refX", 22)
       .attr("refY", -2.5)
       .attr("overflow", "show")
@@ -25,10 +25,10 @@ function makeGraph(svg, nodes, links) {
       .attr("markerHeight", 8)
       .attr("orient", "auto")
     .append("path")
-      .attr("d", "M0,-6L12,0L0,6");
+      .attr("d", "M0,-4L12,0L0,4");
 
   var path = svg.append("g").selectAll(".link")
-      .data(force.links())
+      .data(layout.links())
     .enter().append("path")
       .attr("class", function(d) { return "link " + d.label; })
       .attr('fill', 'none')
@@ -37,20 +37,22 @@ function makeGraph(svg, nodes, links) {
       .attr("marker-end", function(d) { return "url(#arrow)"; });
 
   var number = svg.selectAll("g.number")
-    .data(force.nodes())
+    .data(layout.nodes())
     .enter().append("g")
       .attr("class", "number")
-      .call(force.drag);
+      .call(layout.drag);
 
   number.append("circle")
-    .attr('fill', colorScale(0))
-    .attr('stroke', 'red')
-    .attr('r', 12);
+    .attr('stroke', '#000')
+    .attr('fill', "#f5f5f5")
+    .attr('r', function (d) {
+      return d.label !== "" ? 12 : 4;
+    });
 
   number.append("text")
       .attr('x', -4)
       .attr('y', 5)
-      .attr('fill', 'white')
+      .attr('fill', '#333')
       .text(function (d) { return d.label; });
 
   function transform(d) {
@@ -71,18 +73,19 @@ function makeGraph(svg, nodes, links) {
 
   return {
     number: number,
+    layout: layout,
   };
 }
 
-function link(source, target, label) {
-  return {source: source, target: target, label: label};
+function link(sourceNode, targetNode, label) {
+  return {source: sourceNode.name, target: targetNode.name, label: label};
 }
 
 function linkLine(list, label) {
   var result = [];
   list.forEach(function (item, index) {
     if (index < list.length - 1)
-      result.push(link(list[index].name, list[index + 1].name, label));
+      result.push(link(list[index], list[index + 1], label));
   });
   return result;
 }
