@@ -6,11 +6,11 @@
       return {name: index, label: index};
     });
     function links() {
-      result = [];
+      var result = [];
       nodes.forEach(function(a, ai) {
         nodes.forEach(function (b, bi) {
           if (ai === x && ai < bi) result.push(
-            NamelessNumbers.link(a, b, 'x is less'));
+            NamelessNumbers.link(a, b, 'x-is-less'));
         })
       });
       return result;
