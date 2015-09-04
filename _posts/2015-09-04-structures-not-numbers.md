@@ -30,6 +30,9 @@ excerpt: "This is an article about how different representations can make it eas
 .graph .ne {
   stroke: #55aaaa;
 }
+.graph .primary {
+  stroke: #000;
+}
 .secondary {
   padding-left: 2em;
   visibility: hidden;
@@ -353,7 +356,7 @@ You may wonder why I keep removing number labels from pictures. Aren’t they he
   }, 70);
 </script>
 
-Given only the information in the picture, you can't answer the question, there are no <i>is equal to</i> arrows, which would look like this:
+Given only the information in the picture, you can't answer the question, because there are no <i>is equal to</i> arrows, which would look like this:
 
 <table class="graph">
   <tr>
