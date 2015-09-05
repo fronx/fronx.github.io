@@ -444,7 +444,7 @@ Any object that is greater than or less than another object is also not equal to
 
 Unfortunately, there is a problem with it: even though all we did is remove arrows, we also accidentally introduced new, invisible arrows, by saying that it is transitive, because transitivity means that for every path that you can walk between objects, there also exists a shortcut arrow that we just don't draw because it is not essential. In this graph, one thing you can do is walk from 5 to 6 and back to 5, which means that there is an invisible arrow from 5 to 5, which means that 5 is not equal to 5, which is clearly wrong.
 
-So sadly, this attempt at finding a more compact form of <i>not equal</i> has failed, but it has taught us a lesson: using a tool to simplify the representation of a concept not only has the risk of removing information, it also has the risk of accidentally adding information that was not there before and is probably wrong.
+So, sadly, this attempt at finding a more compact form of <i>not equal</i> has failed, but it has taught us a lesson: using a tool to simplify the representation of a concept not only has the risk of removing information, it also has the risk of accidentally adding information that was not there before and is probably wrong.
 
 It also teaches us something about inequality: even though <i>less than</i> and <i>greater than</i> (as examples of relations about objects not being equal to each other) are transitive, when you combine them into one relation, you lose that precious property.
 
