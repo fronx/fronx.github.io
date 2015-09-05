@@ -446,6 +446,10 @@ Unfortunately, there is a problem with it: even though all we did is remove arro
 
 So sadly, this attempt at finding a more compact form of <i>not equal</i> has failed, but it has taught us a lesson: using a tool to simplify the representation of a concept not only has the risk of removing information, it also has the risk of accidentally adding information that was not there before and is probably wrong.
 
+It also teaches us something about inequality: even though <i>less than</i> and <i>greater than</i>, as concrete examples of relations about objects not being equal to each other, are transitive, when you combine them into one relation, you lose that precious property.
+
+One thing we could do, though, is use the concept of <i>not</i>: one object is <i>not equal</i> to another object if, in the graph that shows whether two objects are <i>equal</i>, there is no arrow between them.
+
 ## Some structures are orderings
 
 In addition to colloqial meanings of order, there is also a mathematical notion of order. For example, the <i>less than</i> relation is an example of a strict ordering. "Strict" means two things here:
