@@ -422,16 +422,16 @@ If you compare the pictures of equality and inequality, you can see that one is 
 
 Is there a way to simplify the picture for inequality? If it is a transitive relation, we might be able to reduce the number of arrows by quite a bit. How do we know if it is transitive? What we need to look out for are arrows that are not really essential, because they are just shortcuts from one object to another, and if you removed them, there would still be a connection left.
 
-Let's start by focussing on just one number and see what it is pointing at: from 4, you can go to 3 and 2, among others. But you can also go from 4 to 2 by going through 3, and you can go from 4 to 3 through 2. Clearly not all of those arrows are essential and it should be safe to remove most of them. From 4 you can also go to 5 and 6, and you can go to 6 through 5 or to 5 through 6.
+Let's start by focussing on just one number and see what it is pointing at: from 4, you can go to 3 and 2, among others. But you can also go from 4 to 2 by going through 3, and you can go from 4 to 3 through 2. It seems like not all of those arrows are essential and it should be safe to remove most of them. Maybe we could just guess what a transitive version of inequality might look like and then check if we got it right afterwards.
 
-Any object that is greater than or less than another object is also not equal to it. As we have seen earlier, <i>greater than</i> and <i>less than</i> are transitive relations and can be reduced to transitive versions of the <i>succ</i> and <i>pred</i> function. If we put those two together, we get a very clean representation of inequality:
+Any object that is greater than or less than another object is also not equal to it. As we have seen earlier, <i>greater than</i> and <i>less than</i> are transitive relations and can be reduced to transitive versions of the <i>succ</i> and <i>pred</i> function. If we put those two together, we get a very clean picture that may or may not be a transitive version of a graph of inequality:
 
 <table class="graph">
   <tr>
     <td><svg id="tidy3" width="720" height="280"></svg></td>
   </tr>
   <tr>
-    <td class="figureCaption"><i>not equal</i> – transitive</td>
+    <td class="figureCaption"><i>not equal(?)</i> – transitive</td>
   </tr>
   <tr>
 </table>
@@ -441,6 +441,10 @@ Any object that is greater than or less than another object is also not equal to
       NamelessNumbers.link(a, b, 'ne'));
   });
 </script>
+
+Unfortunately, there is a problem with it: even though all we did is remove arrows, we also accidentally introduced new, invisible arrows, by saying that it is transitive, because transitivity means that for every path that you can walk between objects, there also exists a shortcut arrow that we just don't draw because it is not essential. In this graph, one thing you can do is walk from 5 to 6 and back to 5, which means that there is an invisible arrow from 5 to 5, which means that 5 is not equal to 5, which is clearly wrong.
+
+So sadly, this attempt at finding a more compact form of <i>not equal</i> has failed, but it has taught us a lesson: using a tool to simplify the representation of a concept not only has the risk of removing information, it also has the risk of accidentally adding information that was not there before and is probably wrong.
 
 ## Some structures are orderings
 
@@ -470,7 +474,7 @@ The following picture contrasts strict ordering with non-strict ordering and wit
   <tr>
     <td class="figureCaption"><i>less than</i> — transitive<br>a strict ordering</td>
     <td class="figureCaption"><i>greater than or equal</i> — transitive<br>a non-strict ordering</td>
-    <td class="figureCaption"><i>not equal</i> — transitive<br>not an ordering</td>
+    <td class="figureCaption"><i>less than or greater than</i><br>not an ordering</td>
   </tr>
   <tr>
 </table>
