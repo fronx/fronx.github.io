@@ -478,7 +478,7 @@ The following picture contrasts strict ordering with non-strict ordering and wit
   <tr>
     <td class="figureCaption"><i>less than</i> — transitive<br>a strict ordering</td>
     <td class="figureCaption"><i>greater than or equal</i> — transitive<br>a non-strict ordering</td>
-    <td class="figureCaption"><i>less than or greater than</i><br>not an ordering</td>
+    <td class="figureCaption"><i>succ or pred</i><br>not an ordering</td>
   </tr>
   <tr>
 </table>
